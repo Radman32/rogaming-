@@ -90,8 +90,17 @@ bot.on("message", async message => {
   else if (bot.aliases.has(cmd))
     command = bot.commands.get(bot.aliases.get(cmd));
   
-  if (command) command.run(bot, message, args);
+  if (command) command.run(bot, message, args);  
+})
+
+bot.on("guildMemberAdd", member => {
+  let channel = member.guild.channels.cache.find(ch => ch.name === "welcome")
+  if(!channel) return
   
+  channel.send(`Welcome ${member.tag} to the RoGaming Community, Join us as we empower Gaming through ROBLOX. <:Roblox:762011931497988139>`)
+  .catch((err) => {
+    console.log(err)
+  })
 })
 
 fs.readdir("./events/", (err, files) => {
